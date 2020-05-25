@@ -23,7 +23,11 @@ const Routes = createAppContainer(
       headerTintColor:'#FFF',
       headerStyle:{
         backgroundColor:'#FF6F69',
-      }
+      },
+      headerTitleStyle: {
+        fontFamily: 'monospace',
+        alignSelf: 'center',
+      },
     }
   })
 );
