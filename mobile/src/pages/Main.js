@@ -1,18 +1,23 @@
 import React from 'react';
-import { View, TextInput,TouchableOpacity,StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 function Main(){
   return (
-    <View style={styles.searchForm}>
-      <TextInput style={styles.searchInput}
-        placeholder="Pesquise por nome"
-        placeholderTextColor="#FFF"
-        autoCapitalize="words"
-        autoCorrect={false}
-        />
-        
-    </View>
+    <>
+      <View style={styles.searchForm}>
+        <TextInput style={styles.searchInput}
+          placeholder="Pesquise por nome"
+          placeholderTextColor="#FFF"
+          autoCapitalize="words"
+          autoCorrect={false}
+          />
+          
+      </View>
+      <TouchableOpacity style={styles.cardPokemon}>
+        <Text style={styles.titleCard}>Bulbasaur   #001</Text>
+      </TouchableOpacity>
+    </>
   )}
 
   const styles = StyleSheet.create({
@@ -42,6 +47,23 @@ function Main(){
       elevation:2,
     },
 
+    cardPokemon:{
+      position:'absolute',
+      top:100,
+      right:20,
+      left:20,
+      height:80,
+      backgroundColor:'#60CD8B',
+      borderRadius:15,
+    },
+    titleCard:{
+      color:'#FFF',
+      fontSize:17,
+      position:'absolute',
+      right:20,
+      top:5,
+      fontFamily: "monospace",
+    }
   })
 
 export default Main; 
