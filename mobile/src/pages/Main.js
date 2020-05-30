@@ -16,6 +16,14 @@ function Main(){
       </View>
       <TouchableOpacity style={styles.cardPokemon}>
         <Text style={styles.titleCard}>Bulbasaur   #001</Text>
+        <View style={{ flexDirection:'row-reverse'}}>
+          <TouchableOpacity>
+            <Text style={styles.typeText}>Poison</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.typeText}>Grass</Text>
+          </TouchableOpacity>
+        </View>
       </TouchableOpacity>
     </>
   )}
@@ -27,6 +35,7 @@ function Main(){
       left:40,
       right:40,
       flexDirection:'row',
+      
     },
   
     searchInput:{
@@ -56,6 +65,7 @@ function Main(){
       backgroundColor:'#60CD8B',
       borderRadius:15,
     },
+
     titleCard:{
       color:'#FFF',
       fontSize:17,
@@ -63,7 +73,23 @@ function Main(){
       right:20,
       top:5,
       fontFamily: "monospace",
-    }
+      fontWeight:'bold',
+    },
+
+    typeText:{
+      fontSize:15,
+      top:45,
+      right:20,
+      fontFamily: "monospace",
+      fontWeight:'bold',
+      borderRadius:15,
+      paddingHorizontal:25,
+      paddingVertical:2,
+      marginLeft:5,
+      borderWidth:1,
+      borderColor:'#046D0E',
+      color:'#046D0E',
+    },
   })
 
 export default Main; 
