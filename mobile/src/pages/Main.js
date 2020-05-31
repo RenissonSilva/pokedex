@@ -14,14 +14,44 @@ function Main(){
           />
           
       </View>
-      <TouchableOpacity style={styles.cardPokemon}>
-        <Text style={styles.titleCard}>Bulbasaur   #001</Text>
-        <View style={{ flexDirection:'row-reverse'}}>
+      <TouchableOpacity style={[styles.cardPokemon , { backgroundColor:'#60CD8B', }]}>{/* Variavel no background de acordo com o tipo principal */}
+        <Text style={styles.titleCard}>Bulbasaur   #001</Text>{/* Variavel que pega nome e id do pokemon */}
+        <View style={{ flexDirection:'row-reverse'}}>{/* Na hora que for listar lembrar de alterar ordem, pra o tipo principal aparecer primeiro */}
           <TouchableOpacity>
-            <Text style={styles.typeText}>Poison</Text>
+            <Text style={[styles.typeText , { color:'#794FD2',borderColor:'#794FD2', }]}>Poison</Text>{/* Colocar variavel pra colocar a cor de acordo com o tipo */}
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.typeText}>Grass</Text>
+            <Text style={[styles.typeText , { color:'#046D0E',borderColor:'#046D0E', }]}>Grass</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.cardPokemon , { backgroundColor:'#FFAFAC', }]}>
+        <Text style={styles.titleCard}>Charmander   #004</Text>
+        <View style={{ flexDirection:'row-reverse'}}>
+          <TouchableOpacity>
+            <Text style={[styles.typeText , { color:'#FF4949',borderColor:'#FF4949', }]}>Fire</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.cardPokemon , { backgroundColor:'#FFAFAC', }]}>
+        <Text style={styles.titleCard}>Charizard   #006</Text>
+        <View style={{ flexDirection:'row-reverse'}}>
+          <TouchableOpacity>
+            <Text style={[styles.typeText , { color:'#C8F5FF',borderColor:'#C8F5FF', }]}>Flying</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={[styles.typeText , { color:'#FF4949',borderColor:'#FF4949', }]}>Fire</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.cardPokemon , { backgroundColor:'#96CDFF', }]}>
+        <Text style={styles.titleCard}>Squirtle   #007</Text>
+        <View style={{ flexDirection:'row-reverse'}}>
+          <TouchableOpacity>
+            <Text style={[styles.typeText , { color:'#377EE8',borderColor:'#377EE8', }]}>Water</Text>
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -35,7 +65,6 @@ function Main(){
       left:40,
       right:40,
       flexDirection:'row',
-      
     },
   
     searchInput:{
@@ -57,13 +86,11 @@ function Main(){
     },
 
     cardPokemon:{
-      position:'absolute',
       top:100,
-      right:20,
-      left:20,
-      height:80,
-      backgroundColor:'#60CD8B',
+      height:85,
+      marginBottom:15,
       borderRadius:15,
+      marginHorizontal:20,
     },
 
     titleCard:{
@@ -87,8 +114,6 @@ function Main(){
       paddingVertical:2,
       marginLeft:5,
       borderWidth:1,
-      borderColor:'#046D0E',
-      color:'#046D0E',
     },
   })
 
