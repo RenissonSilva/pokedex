@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity,ImageBackground, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-function Main(){
+function Main({ navigation }){
   return (
     <>
       <View style={styles.searchForm}>
@@ -13,7 +13,7 @@ function Main(){
           />
           
       </View>
-      <TouchableOpacity style={[styles.cardPokemon , { backgroundColor:'#60CD8B', }]}>{/* Variavel no background de acordo com o tipo principal */}
+      <TouchableOpacity onPress={() => navigation.navigate('Detail',{ pokeID: 1 })} style={[styles.cardPokemon , { backgroundColor:'#60CD8B', }]}>{/* Variavel no background de acordo com o tipo principal */}
         <Text style={styles.titleCard}>Bulbasaur   #001</Text>{/* Variavel que pega nome e id do pokemon */}
         <View style={styles.typeCards}>{/* Na hora que for listar lembrar de alterar ordem, pra o tipo principal aparecer primeiro */}
             <Text style={[styles.typeText , { color:'#046D0E',borderColor:'#046D0E', }]}>Grass</Text>
@@ -23,7 +23,7 @@ function Main(){
         </ImageBackground>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.cardPokemon , { backgroundColor:'#FFAFAC', }]}>
+      <TouchableOpacity onPress={() => navigation.navigate('Detail',{ pokeID: 2 })} style={[styles.cardPokemon , { backgroundColor:'#FFAFAC', }]}>
         <Text style={styles.titleCard}>Charmander   #004</Text>
         <View style={styles.typeCards}>
             <Text style={[styles.typeText , { color:'#FF4949',borderColor:'#FF4949', }]}>Fire</Text>
@@ -32,7 +32,7 @@ function Main(){
         </ImageBackground>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.cardPokemon , { backgroundColor:'#FFAFAC', }]}>
+      <TouchableOpacity onPress={() => navigation.navigate('Detail',{ pokeID: 3 })} style={[styles.cardPokemon , { backgroundColor:'#FFAFAC', }]}>
         <Text style={styles.titleCard}>Charizard   #006</Text>
         <View style={styles.typeCards}>
             <Text style={[styles.typeText , { color:'#FF4949',borderColor:'#FF4949', }]}>Fire</Text>
@@ -42,7 +42,7 @@ function Main(){
         </ImageBackground>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.cardPokemon , { backgroundColor:'#96CDFF', }]}>
+      <TouchableOpacity onPress={() => navigation.navigate('Detail',{ pokeID: 4 })} style={[styles.cardPokemon , { backgroundColor:'#96CDFF', }]}>
         <Text style={styles.titleCard}>Squirtle   #007</Text>
         <View style={styles.typeCards}>
             <Text style={[styles.typeText , { color:'#377EE8',borderColor:'#377EE8', }]}>Water</Text>

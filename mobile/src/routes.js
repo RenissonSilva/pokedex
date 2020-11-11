@@ -15,7 +15,7 @@ const Routes = createAppContainer(
     Detail:{
       screen: Detail,
       navigationOptions:{
-        title:'Pokémon'
+        title:'Nome do pokémon'
       }
     },
   },{
@@ -28,6 +28,10 @@ const Routes = createAppContainer(
         fontFamily: 'monospace',
         alignSelf: 'center',
         fontWeight: 'bold',
+        
+      },
+      headerTitleContainerStyle: {
+        left: 0,
       },
     }
   })
