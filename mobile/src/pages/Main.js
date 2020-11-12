@@ -1,7 +1,20 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity,ImageBackground, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import api from '../services/api';
 function Main({ navigation }){
+
+componentDidMount(); {
+  this.loadPokemons();
+}
+
+loadPokemons = async () => {
+  const reponse = await api.get('/api/v2/');
+
+  const { docs } = reponse.data;
+
+  console.log(docs);
+};
   return (
     <>
       <View style={styles.searchForm}>
