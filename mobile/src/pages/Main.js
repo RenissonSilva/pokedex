@@ -3,18 +3,18 @@ import { View, Text, TextInput, TouchableOpacity,ImageBackground, StyleSheet } f
 import { MaterialIcons } from '@expo/vector-icons';
 import api from '../services/api';
 function Main({ navigation }){
+  
+// componentDidMount(){
+//   this.loadPokemons();
+// }
 
-componentDidMount(); {
-  this.loadPokemons();
-}
+// loadPokemons = async () => {
+//   const response = await api.get('/api/v2/');
 
-loadPokemons = async () => {
-  const reponse = await api.get('/api/v2/');
+//   const { docs } = response.data;
 
-  const { docs } = reponse.data;
-
-  console.log(docs);
-};
+//   console.log(docs);
+// };
   return (
     <>
       <View style={styles.searchForm}>

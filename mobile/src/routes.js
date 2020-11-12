@@ -15,7 +15,10 @@ const Routes = createAppContainer(
     Detail:{
       screen: Detail,
       navigationOptions:{
-        title:'Nome do pokémon'
+        title:'Bulbasaur',
+        headerStyle:{
+          backgroundColor:'#60CD8B',
+        },
       }
     },
   },{
