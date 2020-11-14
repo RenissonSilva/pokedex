@@ -28,6 +28,10 @@ useEffect(() => {
   .then(data => {
     setPokemons(data.results)
   })
+  pokemons.map((pokemon) => {
+    console.log(pokemon.url)
+  })
+
 }, [])
 
   return (
