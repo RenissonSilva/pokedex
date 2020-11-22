@@ -10,17 +10,6 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import api from "./api";
 function Main({ navigation }) {
-  // componentDidMount(){
-  //   this.loadPokemons();
-  // }
-
-  // loadPokemons = async () => {
-  //   const response = await api.get('/api/v2/');
-
-  //   const { docs } = response.data;
-
-  //   console.log(docs);
-  // };
   return (
     <>
       <View style={styles.searchForm}>

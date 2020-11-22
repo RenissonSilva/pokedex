@@ -11,17 +11,6 @@ import {
 import api from "./api";
 
 function Detail({ navigation }) {
-  // componentDidMount() {
-  //   this.loadPokemons();
-  // }
-
-  // loadPokemons = async () => {
-  //   const reponse = await api.get('/api/v2/');
-
-  //   const { docs } = reponse.data;
-
-  //   console.log(docs);
-  // };
   return (
     <ScrollView>
       <StatusBar barStyle="light-content" backgroundColor="#60CD8B" />
