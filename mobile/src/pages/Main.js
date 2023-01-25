@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,9 +9,44 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import api from "./api";
+
 function Main({ navigation }) {
+  const [pokemons, setPokemons] = useState([]);
+
+  useEffect(() => {
+    async function getAllPokemons() {
+      const response = await api.get('/pokemon')
+      const { results } = response.data;
+      console.log(results)
+
+      const payloadPokemons = await Promise.all(
+        results.map(async pokemon => {
+          const { id, types } = await getMoreInfo(pokemon.url);
+
+          return {
+            name: pokemon.name,
+            id,
+            types
+          }
+        })
+      )
+      setPokemons(payloadPokemons);
+      console.log('payloadPokemons', payloadPokemons)
+    }
+
+    getAllPokemons();
+  }, [])
+
+  async function getMoreInfo(url) {
+      const response = await api.get(url)
+      const { id, types } = response.data;
+
+      return { id, types }
+  }
+
   return (
     <>
+    {/* {pokemons.map(item => <Text>{item.name}</Text>)} */}
       <View style={styles.searchForm}>
         <TextInput
           style={styles.searchInput}
