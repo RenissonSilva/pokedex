@@ -6,16 +6,18 @@ import {
   TouchableOpacity,
   ImageBackground,
   StyleSheet,
+  ScrollView,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import api from "./api";
+import { Card } from '../components/Card'
 
 function Main({ navigation }) {
   const [pokemons, setPokemons] = useState([]);
 
   useEffect(() => {
     async function getAllPokemons() {
-      const response = await api.get('/pokemon')
+      const response = await api.get('/pokemon?limit=10&offset=0')
+      // const response = await api.get('/pokemon?limit=152&offset=0')
       const { results } = response.data;
       console.log(results)
 
@@ -31,7 +33,7 @@ function Main({ navigation }) {
         })
       )
       setPokemons(payloadPokemons);
-      console.log('payloadPokemons', payloadPokemons)
+      // console.log('payloadPokemons', payloadPokemons)
     }
 
     getAllPokemons();
@@ -46,138 +48,42 @@ function Main({ navigation }) {
 
   return (
     <>
-    {/* {pokemons.map(item => <Text>{item.name}</Text>)} */}
-      <View style={styles.searchForm}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Pesquise por nome"
-          placeholderTextColor="#FFF"
-          autoCapitalize="words"
-          autoCorrect={false}
-        />
+      <View style={styles.boxForm}>
+        <View style={styles.searchForm}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Pesquise por nome"
+            placeholderTextColor="#FFF"
+            autoCapitalize="words"
+            autoCorrect={false}
+          />
+        </View>
       </View>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Detail", { pokeID: 1 })}
-        style={[styles.cardPokemon, { backgroundColor: "#60CD8B" }]}
-      >
-        {/* Variavel no background de acordo com o tipo principal */}
-        <Text style={styles.titleCard}>Bulbasaur #001</Text>
-        {/* Variavel que pega nome e id do pokemon */}
-        <View style={styles.typeCards}>
-          {/* Na hora que for listar lembrar de alterar ordem, pra o tipo principal aparecer primeiro */}
-          <Text
-            style={[
-              styles.typeText,
-              { color: "#046D0E", borderColor: "#046D0E" },
-            ]}
-          >
-            Grass
-          </Text>
-          <Text
-            style={[
-              styles.typeText,
-              { color: "#794FD2", borderColor: "#794FD2" },
-            ]}
-          >
-            Poison
-          </Text>
-          {/* Colocar variavel pra colocar a cor de acordo com o tipo */}
-        </View>
-        <ImageBackground
-          source={{
-            uri: "https://pokeres.bastionbot.org/images/pokemon/1.png",
-          }}
-          style={styles.image}
-        ></ImageBackground>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Detail", { pokeID: 2 })}
-        style={[styles.cardPokemon, { backgroundColor: "#FFAFAC" }]}
-      >
-        <Text style={styles.titleCard}>Charmander #004</Text>
-        <View style={styles.typeCards}>
-          <Text
-            style={[
-              styles.typeText,
-              { color: "#FF4949", borderColor: "#FF4949" },
-            ]}
-          >
-            Fire
-          </Text>
-        </View>
-        <ImageBackground
-          source={{
-            uri: "https://pokeres.bastionbot.org/images/pokemon/4.png",
-          }}
-          style={styles.image}
-        ></ImageBackground>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Detail", { pokeID: 3 })}
-        style={[styles.cardPokemon, { backgroundColor: "#FFAFAC" }]}
-      >
-        <Text style={styles.titleCard}>Charizard #006</Text>
-        <View style={styles.typeCards}>
-          <Text
-            style={[
-              styles.typeText,
-              { color: "#FF4949", borderColor: "#FF4949" },
-            ]}
-          >
-            Fire
-          </Text>
-          <Text
-            style={[
-              styles.typeText,
-              { color: "#C8F5FF", borderColor: "#C8F5FF" },
-            ]}
-          >
-            Flying
-          </Text>
-        </View>
-        <ImageBackground
-          source={{
-            uri: "https://pokeres.bastionbot.org/images/pokemon/6.png",
-          }}
-          style={styles.image}
-        ></ImageBackground>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Detail", { pokeID: 4 })}
-        style={[styles.cardPokemon, { backgroundColor: "#96CDFF" }]}
-      >
-        <Text style={styles.titleCard}>Squirtle #007</Text>
-        <View style={styles.typeCards}>
-          <Text
-            style={[
-              styles.typeText,
-              { color: "#377EE8", borderColor: "#377EE8" },
-            ]}
-          >
-            Water
-          </Text>
-        </View>
-        <ImageBackground
-          source={{
-            uri: "https://pokeres.bastionbot.org/images/pokemon/7.png",
-          }}
-          style={styles.image}
-        ></ImageBackground>
-      </TouchableOpacity>
+      <ScrollView style={styles.scrollPokemons}>
+        {pokemons.map((item, key) => 
+          <Card pokemon={item} key={key}/>
+        )}
+      </ScrollView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  boxForm: {
+    backgroundColor: 'transparent',
+    height: 100,
+    margin: 0,
+    padding: 0,
+  },
   searchForm: {
     position: "absolute",
     top: 20,
-    left: 40,
-    right: 40,
-    flexDirection: "row",
+    left: 30,
+    right: 30,
+  },
+  scrollPokemons: {
+    position: "relative",
+    top: 0
   },
   image: {
     flex: 1,
