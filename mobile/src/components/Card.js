@@ -5,19 +5,28 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  TouchableHighlight,
 } from "react-native";
 import colors from '../global/styles/theme'
 
 export function Card({ pokemon }) {
+    console.log('pokemon dentro do card', pokemon)
     const formattedId = ("00" + pokemon.id).slice(-3)
     const mainType = pokemon.types[0]?.type?.name ?? null;
     const secondaryType = pokemon.types[1]?.type?.name ?? null;
+    console.log('mainType', mainType)
 
     return (
+      // <>
+      //   <Text>{pokemon.name}</Text>
+      //   <Text>{mainType}</Text>
+      //   <Text>{secondaryType}</Text>
+      // </>
+
         <TouchableOpacity
-        onPress={() => navigation.navigate("Detail", { pokeID: 1 })}
-        style={[styles.cardPokemon, { backgroundColor: colors.backgroundCard[mainType] }]}
-      >
+          onPress={() => navigation.navigate("Detail", { pokeID: pokemon.id })}
+          style={[styles.cardPokemon, { backgroundColor: colors.backgroundCard[mainType] }]}
+        >
         <Text style={styles.titleCard}>{pokemon.name} #{pokemon.id}</Text>
         <View style={styles.typeCards}>
           <Text

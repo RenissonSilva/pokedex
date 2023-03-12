@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
-  Text,
   TextInput,
-  TouchableOpacity,
-  ImageBackground,
   StyleSheet,
   ScrollView,
 } from "react-native";
@@ -13,13 +10,13 @@ import { Card } from '../components/Card'
 
 function Main({ navigation }) {
   const [pokemons, setPokemons] = useState([]);
+  const [allPokemons, setAllPokemons] = useState([]);
+  const [searchName, setSearchName] = useState('');
 
   useEffect(() => {
     async function getAllPokemons() {
-      const response = await api.get('/pokemon?limit=10&offset=0')
-      // const response = await api.get('/pokemon?limit=152&offset=0')
+      const response = await api.get('/pokemon?limit=151&offset=0')
       const { results } = response.data;
-      console.log(results)
 
       const payloadPokemons = await Promise.all(
         results.map(async pokemon => {
@@ -33,7 +30,7 @@ function Main({ navigation }) {
         })
       )
       setPokemons(payloadPokemons);
-      // console.log('payloadPokemons', payloadPokemons)
+      setAllPokemons(payloadPokemons);
     }
 
     getAllPokemons();
@@ -46,44 +43,50 @@ function Main({ navigation }) {
       return { id, types }
   }
 
+  useEffect(() => {
+    if(searchName == '') {
+      setPokemons(allPokemons);
+    } else {
+      let filtered_pokemons = allPokemons.filter((item) => {
+        return item.name.toLowerCase().indexOf(searchName.toLowerCase()) !== -1;
+      });
+      setPokemons(filtered_pokemons);
+    }
+  }, [searchName])
+
   return (
-    <>
-      <View style={styles.boxForm}>
-        <View style={styles.searchForm}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Pesquise por nome"
-            placeholderTextColor="#FFF"
-            autoCapitalize="words"
-            autoCorrect={false}
-          />
-        </View>
+    <ScrollView>
+      <View style={styles.searchForm}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Pesquise por nome"
+          placeholderTextColor="#FFF"
+          autoCapitalize="words"
+          autoCorrect={false}
+          onChangeText={setSearchName}
+        />
       </View>
-      <ScrollView style={styles.scrollPokemons}>
-        {pokemons.map((item, key) => 
-          <Card pokemon={item} key={key}/>
+      <View style={styles.pokemonsListView}>
+        {pokemons?.map((item) => 
+          <Card pokemon={item} key={item.id}/>
         )}
-      </ScrollView>
-    </>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  boxForm: {
-    backgroundColor: 'transparent',
-    height: 100,
-    margin: 0,
+  pokemonsListView: {
+    minHeight: 15200,
     padding: 0,
+    margin: 0,
+    bottom: 0,
   },
   searchForm: {
     position: "absolute",
     top: 20,
     left: 30,
     right: 30,
-  },
-  scrollPokemons: {
-    position: "relative",
-    top: 0
   },
   image: {
     flex: 1,
