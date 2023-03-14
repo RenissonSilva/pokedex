@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,65 +9,87 @@ import {
   StyleSheet,
 } from "react-native";
 import api from "./api";
+import colors from '../global/styles/theme'
 
-function Detail({ navigation }) {
+
+function Detail({ route, navigation }) {
+  const { pokeID, formattedId, mainType, secondaryType } = route.params;
+
+  const [ pokemon, setPokemon ] = useState({
+    height: null,
+    weight: null,
+    name: null,
+    abilities: [],
+    types: null,
+    description: null,
+  });
+
+  useEffect(() => {
+    async function pokemonDetails() {
+      const response = await api.get(`/pokemon/${pokeID}`)
+      let { name, height, weight, abilities, types } = response.data;
+      const description = await api.get(`/pokemon-species/${pokeID}`)
+      const { flavor_text_entries } = description.data;
+      
+      abilities = abilities.map((x) => x.ability.name);
+      setPokemon({
+        name, height, weight, abilities, types, description: flavor_text_entries[0].flavor_text
+      })
+    }
+
+    pokemonDetails();
+  }, [])
+
   return (
-    <ScrollView>
-      <StatusBar barStyle="light-content" backgroundColor="#60CD8B" />
+    <ScrollView style={{ flex: 1 }}>
+      <StatusBar barStyle="light-content" backgroundColor={colors.backgroundCard[mainType]} />
       <View style={styles.viewInfoPoke}>
         <ImageBackground
           source={{
-            uri: "https://pokeres.bastionbot.org/images/pokemon/1.png",
+            uri: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formattedId}.png`,
           }}
           style={styles.image}
         ></ImageBackground>
-        <Text style={styles.description}>
-          Bulbasaur can be seen napping in bright sunlight. There is a seed on
-          its back. By soaking up the sun's rays, the seed grows progressively
-          larger.
+        <Text style={[
+          styles.description,
+          { color: colors.backgroundCard[mainType] }
+          ]}>
+          {pokemon.description}
         </Text>
       </View>
-      <View style={styles.viewStatusPoke}>
+      <View style={[
+        styles.viewStatusPoke,
+        { backgroundColor: colors.backgroundCard[mainType] }
+      ]}>
         <Text style={styles.title}>Stats</Text>
-        <Text style={styles.subTitle}>Height: 0.7 m</Text>
-        <Text style={styles.subTitle}>Weight: 6.9 kg</Text>
-        <Text style={styles.subTitle}>Category: Seed</Text>
+        <Text style={styles.subTitle}>Height: {pokemon.height} m</Text>
+        <Text style={styles.subTitle}>Weight: {pokemon.weight} kg</Text>
         <Text style={styles.title}>Type</Text>
 
         <View style={styles.divTypes}>
-          <TouchableOpacity style={[styles.btn, styles.grass]}>
-            <Text style={styles.name}>Grass</Text>
+          <TouchableOpacity style={[
+              styles.btn, 
+              { backgroundColor: colors.backgroundCard[mainType], borderColor: colors.detailBorder[mainType]}
+            ]}>
+            <Text style={styles.name}>{mainType.charAt(0).toUpperCase() + mainType.slice(1)}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.btn, styles.poison]}>
-            <Text style={styles.name}>Poison</Text>
-          </TouchableOpacity>
+          {secondaryType &&
+            <TouchableOpacity style={[
+                styles.btn,
+                { backgroundColor: colors.backgroundCard[secondaryType], borderColor: colors.detailBorder[secondaryType]}
+              ]}>
+              <Text style={styles.name}>{secondaryType.charAt(0).toUpperCase() + secondaryType.slice(1)}</Text>
+            </TouchableOpacity>
+          }
         </View>
-
-        <Text style={styles.title}>Weaknesses</Text>
-
-        <View style={styles.divTypes}>
-          <TouchableOpacity style={[styles.btn, styles.fire]}>
-            <Text style={styles.name}>Fire</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.btn, styles.psychic]}>
-            <Text style={styles.name}>Psychic</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.divTypes}>
-          <TouchableOpacity style={[styles.btn, styles.flying]}>
-            <Text style={[styles.name, styles.flying]}>Flying</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.btn, styles.ice]}>
-            <Text style={styles.name}>Ice</Text>
-          </TouchableOpacity>
-        </View>
+        
         <Text style={styles.title}>Abilities</Text>
-        <Text style={styles.subTitle}>Overgrow</Text>
-        <Text style={styles.subTitle}>Chlorophyll</Text>
+        {pokemon.abilities.length > 0 && <Text style={styles.subTitle}>{pokemon.abilities[0]}</Text>}
+        {pokemon.abilities.length > 1 && <Text style={styles.subTitle}>{pokemon.abilities[1]}</Text>}
+        {pokemon.abilities.length > 2 && <Text style={styles.subTitle}>{pokemon.abilities[2]}</Text>}
+        {pokemon.abilities.length > 3 && <Text style={styles.subTitle}>{pokemon.abilities[3]}</Text>}
+        {pokemon.abilities.length > 4 && <Text style={styles.subTitle}>{pokemon.abilities[4]}</Text>}
       </View>
-      {/* <Text>
-        ID: {JSON.stringify(navigation.getParam('pokeID'))}
-      </Text> */}
     </ScrollView>
   );
 }
@@ -95,9 +117,10 @@ const styles = StyleSheet.create({
     textAlign: "justify",
   },
   viewStatusPoke: {
-    backgroundColor: "#A4D5B7",
+    // backgroundColor: {backgroundColor={colors.backgroundCard[mainType]}},
     height: "100%",
-    marginBottom: 30,
+    marginBottom: 80,
+    // flex: 1
   },
   title: {
     color: "#fff",
@@ -120,20 +143,21 @@ const styles = StyleSheet.create({
     textShadowColor: "rgba(0, 0, 0, 0.3)",
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 15,
+    textTransform: 'capitalize'
   },
   btn: {
     width: 150,
     height: 38,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: "#fff",
+    // borderColor: "#fff",
     justifyContent: "center",
     fontWeight: "bold",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,

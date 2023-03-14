@@ -8,26 +8,22 @@ import {
   TouchableHighlight,
 } from "react-native";
 import colors from '../global/styles/theme'
+import { useNavigation } from '@react-navigation/native';
 
 export function Card({ pokemon }) {
-    console.log('pokemon dentro do card', pokemon)
+    const { navigate } = useNavigation();
+
     const formattedId = ("00" + pokemon.id).slice(-3)
     const mainType = pokemon.types[0]?.type?.name ?? null;
     const secondaryType = pokemon.types[1]?.type?.name ?? null;
-    console.log('mainType', mainType)
+    const formattedName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
 
     return (
-      // <>
-      //   <Text>{pokemon.name}</Text>
-      //   <Text>{mainType}</Text>
-      //   <Text>{secondaryType}</Text>
-      // </>
-
         <TouchableOpacity
-          onPress={() => navigation.navigate("Detail", { pokeID: pokemon.id })}
+          onPress={() => navigate("Detail", { pokeID: pokemon.id, formattedId, mainType, secondaryType, name: formattedName })}
           style={[styles.cardPokemon, { backgroundColor: colors.backgroundCard[mainType] }]}
         >
-        <Text style={styles.titleCard}>{pokemon.name} #{pokemon.id}</Text>
+        <Text style={styles.titleCard}>{pokemon.name} #{formattedId}</Text>
         <View style={styles.typeCards}>
           <Text
             style={[
