@@ -62,8 +62,8 @@ function Detail({ route, navigation }) {
         { backgroundColor: colors.backgroundCard[mainType] }
       ]}>
         <Text style={styles.title}>Stats</Text>
-        <Text style={styles.subTitle}>Height: {pokemon.height} m</Text>
-        <Text style={styles.subTitle}>Weight: {pokemon.weight} kg</Text>
+        <Text style={styles.subTitle}>Height: {pokemon.height/10} m</Text>
+        <Text style={styles.subTitle}>Weight: {pokemon.weight/10} kg</Text>
         <Text style={styles.title}>Type</Text>
 
         <View style={styles.divTypes}>
