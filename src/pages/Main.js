@@ -4,6 +4,7 @@ import {
   TextInput,
   StyleSheet,
   ScrollView,
+  ActivityIndicator
 } from "react-native";
 import api from "./api";
 import { Card } from '../components/Card'
@@ -12,6 +13,7 @@ function Main({ navigation }) {
   const [pokemons, setPokemons] = useState([]);
   const [allPokemons, setAllPokemons] = useState([]);
   const [searchName, setSearchName] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function getAllPokemons() {
@@ -29,6 +31,7 @@ function Main({ navigation }) {
           }
         })
       )
+      setIsLoading(false)
       setPokemons(payloadPokemons);
       setAllPokemons(payloadPokemons);
     }
@@ -67,6 +70,7 @@ function Main({ navigation }) {
         />
       </View>
       <View style={styles.pokemonsListView}>
+        {isLoading && <ActivityIndicator size="large" color="#FF6F69"/>}
         {pokemons?.map((item) => 
           <Card pokemon={item} key={item.id}/>
         )}
@@ -77,10 +81,10 @@ function Main({ navigation }) {
 
 const styles = StyleSheet.create({
   pokemonsListView: {
-    minHeight: 15200,
     padding: 0,
     margin: 0,
     bottom: 0,
+    marginTop: 100
   },
   searchForm: {
     position: "absolute",
@@ -110,41 +114,6 @@ const styles = StyleSheet.create({
       height: 4,
     },
     elevation: 2,
-  },
-
-  cardPokemon: {
-    top: 100,
-    height: 85,
-    marginBottom: 15,
-    borderRadius: 15,
-    marginHorizontal: 20,
-  },
-
-  titleCard: {
-    color: "#FFF",
-    fontSize: 17,
-    position: "absolute",
-    right: 20,
-    top: 5,
-    fontFamily: "monospace",
-    fontWeight: "bold",
-  },
-
-  typeText: {
-    fontSize: 15,
-    fontFamily: "monospace",
-    fontWeight: "bold",
-    borderRadius: 15,
-    paddingHorizontal: 25,
-    paddingVertical: 2,
-    marginLeft: 5,
-    borderWidth: 1,
-  },
-  typeCards: {
-    flexDirection: "row",
-    position: "absolute",
-    right: 10,
-    bottom: 10,
   },
 });
 

@@ -4,8 +4,7 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  TouchableOpacity,
-  TouchableHighlight,
+  TouchableOpacity
 } from "react-native";
 import colors from '../global/styles/theme'
 import { useNavigation } from '@react-navigation/native';
@@ -55,60 +54,31 @@ export function Card({ pokemon }) {
 }
 
 const styles = StyleSheet.create({
-    searchForm: {
-      position: "absolute",
-      top: 20,
-      left: 40,
-      right: 40,
-      flexDirection: "row",
-    },
     image: {
       flex: 1,
       opacity: 0.4,
       width: 150,
       marginLeft: 20,
     },
-    searchInput: {
-      flex: 1,
-      height: 50,
-      backgroundColor: "#FFAFAC",
-      color: "#FFF",
-      borderRadius: 25,
-      paddingHorizontal: 20,
-      fontSize: 16,
-      fontFamily: "monospace",
-      shadowColor: "#000",
-      shadowOpacity: 0.2,
-      shadowOffset: {
-        width: 4,
-        height: 4,
-      },
-      elevation: 2,
-    },
-  
     cardPokemon: {
-      top: 100,
       height: 85,
       marginBottom: 15,
       borderRadius: 15,
       marginHorizontal: 20,
+      position: "relative"
     },
-  
     titleCard: {
       color: "#FFF",
-      fontSize: 17,
+      fontSize: 18,
       position: "absolute",
       right: 20,
       top: 5,
-      fontFamily: "monospace",
-      fontWeight: "bold",
+      fontFamily: "Sansation",
       textTransform: 'capitalize'
     },
-  
     typeText: {
       fontSize: 15,
-      fontFamily: "monospace",
-      fontWeight: "bold",
+      fontFamily: "Sansation",
       borderRadius: 15,
       paddingHorizontal: 25,
       paddingVertical: 2,

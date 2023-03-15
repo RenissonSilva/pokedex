@@ -7,14 +7,14 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import api from "./api";
 import colors from '../global/styles/theme'
 
-
 function Detail({ route, navigation }) {
   const { pokeID, formattedId, mainType, secondaryType } = route.params;
-
+  const [isLoading, setIsLoading] = useState(true);
   const [ pokemon, setPokemon ] = useState({
     height: null,
     weight: null,
@@ -30,11 +30,12 @@ function Detail({ route, navigation }) {
       let { name, height, weight, abilities, types } = response.data;
       const description = await api.get(`/pokemon-species/${pokeID}`)
       const { flavor_text_entries } = description.data;
-      
+      const en = flavor_text_entries.filter(x => x.language.name === 'en');
       abilities = abilities.map((x) => x.ability.name);
       setPokemon({
-        name, height, weight, abilities, types, description: flavor_text_entries[0].flavor_text
+        name, height, weight, abilities, types, description: en[0].flavor_text
       })
+      setIsLoading(false)
     }
 
     pokemonDetails();
@@ -50,6 +51,7 @@ function Detail({ route, navigation }) {
           }}
           style={styles.image}
         ></ImageBackground>
+        {isLoading && <ActivityIndicator size="large" color={colors.backgroundCard[mainType]}/>}
         <Text style={[
           styles.description,
           { color: colors.backgroundCard[mainType] }
@@ -71,14 +73,14 @@ function Detail({ route, navigation }) {
               styles.btn, 
               { backgroundColor: colors.backgroundCard[mainType], borderColor: colors.detailBorder[mainType]}
             ]}>
-            <Text style={styles.name}>{mainType.charAt(0).toUpperCase() + mainType.slice(1)}</Text>
+            <Text style={[styles.name, {color: colors.detailBorder[mainType]}]}>{mainType.charAt(0).toUpperCase() + mainType.slice(1)}</Text>
           </TouchableOpacity>
           {secondaryType &&
             <TouchableOpacity style={[
                 styles.btn,
                 { backgroundColor: colors.backgroundCard[secondaryType], borderColor: colors.detailBorder[secondaryType]}
               ]}>
-              <Text style={styles.name}>{secondaryType.charAt(0).toUpperCase() + secondaryType.slice(1)}</Text>
+              <Text style={[styles.name, {color: colors.detailBorder[secondaryType]}]}>{secondaryType.charAt(0).toUpperCase() + secondaryType.slice(1)}</Text>
             </TouchableOpacity>
           }
         </View>
@@ -150,20 +152,14 @@ const styles = StyleSheet.create({
     height: 38,
     borderRadius: 12,
     borderWidth: 2,
-    // borderColor: "#fff",
     justifyContent: "center",
     fontWeight: "bold",
-    // shadowColor: "#000",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
   },
   name: {
-    color: "#fff",
+    // color: "#fff",
     textAlign: "center",
     fontFamily: "monospace",
     fontWeight: "bold",

@@ -15,7 +15,7 @@ export function Routes() {
       },
       headerTitleStyle:{
         fontSize: 23,
-        // fontFamily: 'Sansation',
+        fontFamily: 'Sansation',
       },
       headerTintColor: '#fff',
       headerTitleAlign: 'center'
@@ -29,7 +29,7 @@ export function Routes() {
       },
       headerTitleStyle:{
         fontSize: 23,
-        // fontFamily: 'Sansation',
+        fontFamily: 'Sansation',
       },
       headerTintColor: colors.detailBorder[route.params.mainType],
       headerTitleAlign: 'center'
