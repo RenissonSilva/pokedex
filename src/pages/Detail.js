@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   viewInfoPoke: {
     alignItems: "center",
-    height: 300,
+    height: 350,
     backgroundColor: "#fff",
     opacity: 0.9,
   },
