@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Pokédex",
-    "slug": "Pokédex",
+    "slug": "pokedex",
     "platforms": [
       "ios",
       "android",
@@ -23,6 +23,15 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "414a08df-26b9-4aab-9b22-a1b8765b788c"
+      }
+    },
+    "owner": "renissonsilva",
+    "android": {
+      "package": "com.renissonsilva.pokedex"
     }
   }
 }
